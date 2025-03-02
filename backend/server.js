@@ -6,6 +6,7 @@
 
 // const app = express();
 
+
 // const corsOptions = {
 //   origin: "http://localhost:3000",
 //   methods: ["POST", "GET"],
@@ -54,6 +55,7 @@
 //   res.json(getProblems());
 // });
 
+
 // //--------deployment-----------
 // const __dirname1 = path.resolve();
 // app.use(express.static(path.join(__dirname1, "/frontend/build")));
@@ -77,17 +79,10 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
+// Function to read problems.json
 const getProblems = () => {
-  try {
-    const data = fs.readFileSync(
-      path.join(__dirname, "problems.json"),
-      "utf-8"
-    );
-    return JSON.parse(data);
-  } catch (error) {
-    console.error("Error reading problems.json:", error);
-    return {};
-  }
+  const data = fs.readFileSync(path.join(__dirname, "problems.json"));
+  return JSON.parse(data);
 };
 
 app.post("/run", (req, res) => {
@@ -99,18 +94,17 @@ app.post("/run", (req, res) => {
   }
 
   const executablePath = path.join(__dirname, problems[problem].executable);
+  const tempExecutablePath = "/tmp/p1"; // Moving executable to tmp directory
 
-  // Check if the file exists and is executable
-  if (!fs.existsSync(executablePath)) {
-    return res.status(400).json({ error: "Executable not found" });
-  }
-  if (!fs.statSync(executablePath).mode & 0o111) {
-    return res
-      .status(400)
-      .json({ error: "Executable does not have execute permissions" });
+  try {
+    // Copy the executable to /tmp and make it executable
+    fs.copyFileSync(executablePath, tempExecutablePath);
+    fs.chmodSync(tempExecutablePath, 0o755);
+  } catch (error) {
+    return res.status(500).json({ error: "Failed to prepare executable" });
   }
 
-  const process = spawn(executablePath);
+  const process = spawn(tempExecutablePath);
 
   let output = "",
     errorOutput = "";
@@ -124,7 +118,6 @@ app.post("/run", (req, res) => {
   });
 
   process.on("error", (err) => {
-    console.error("Execution Error:", err);
     return res.status(500).json({ error: `Execution error: ${err.message}` });
   });
 
@@ -142,12 +135,13 @@ app.get("/problems", (req, res) => {
   res.json(getProblems());
 });
 
-//--------deployment-----------
+//-------- Deployment Config --------
 const __dirname1 = path.resolve();
 app.use(express.static(path.join(__dirname1, "/frontend/build")));
+
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"));
 });
-//--------deployment-----------
+//-------- Deployment Config --------
 
 app.listen(5000, () => console.log("Server running on port 5000"));
