@@ -1,7 +1,7 @@
 {
-  "p1": { "name": "Problem 1", "executable": "p1.exe" },
-  "p2": { "name": "Problem 2", "executable": "p2.exe" },
-  "p3": { "name": "Problem 3", "executable": "p3.exe" },
-  "p4": { "name": "Problem 4", "executable": "p4.exe" },
-  "p5": { "name": "Problem 5", "executable": "p5.exe" }
+  "p1": { "name": "Problem 1", "executable": "p1" },
+  "p2": { "name": "Problem 2", "executable": "p2" },
+  "p3": { "name": "Problem 3", "executable": "p3" },
+  "p4": { "name": "Problem 4", "executable": "p4" },
+  "p5": { "name": "Problem 5", "executable": "p5" }
 }

@@ -3,6 +3,7 @@ const cors = require("cors");
 const { spawn } = require("child_process");
 const path = require("path");
 const fs = require("fs");
+const { exec } = require("child_process");
 
 const app = express();
 
@@ -19,6 +20,39 @@ const getProblems = () => {
   return JSON.parse(data);
 };
 
+// app.post("/run", (req, res) => {
+//   const problems = getProblems();
+//   const { problem, input } = req.body;
+
+//   if (!problems[problem]) {
+//     return res.status(400).json({ error: "Invalid problem" });
+//   }
+
+//   const executablePath = path.join(__dirname, problems[problem].executable);
+
+//   const process = spawn(executablePath);
+//   let output = "",
+//     errorOutput = "";
+
+//   process.stdout.on("data", (data) => {
+//     output += data.toString();
+//   });
+
+//   process.stderr.on("data", (data) => {
+//     errorOutput += data.toString();
+//   });
+
+//   process.on("close", (code) => {
+//     res.json({
+//       output: code !== 0 ? "Execution Error: " + errorOutput : output.trim(),
+//     });
+//   });
+
+//   process.stdin.write(input + "\n");
+//   process.stdin.end();
+// });
+
+
 app.post("/run", (req, res) => {
   const problems = getProblems();
   const { problem, input } = req.body;
@@ -29,27 +63,38 @@ app.post("/run", (req, res) => {
 
   const executablePath = path.join(__dirname, problems[problem].executable);
 
-  const process = spawn(executablePath);
-  let output = "",
-    errorOutput = "";
+  // Grant execute permission
+  exec(`chmod +x ${executablePath}`, (err) => {
+    if (err) {
+      return res
+        .status(500)
+        .json({ error: "Permission error: " + err.message });
+    }
 
-  process.stdout.on("data", (data) => {
-    output += data.toString();
-  });
+    const process = spawn(executablePath);
+    let output = "",
+      errorOutput = "";
 
-  process.stderr.on("data", (data) => {
-    errorOutput += data.toString();
-  });
-
-  process.on("close", (code) => {
-    res.json({
-      output: code !== 0 ? "Execution Error: " + errorOutput : output.trim(),
+    process.stdout.on("data", (data) => {
+      output += data.toString();
     });
-  });
 
-  process.stdin.write(input + "\n");
-  process.stdin.end();
+    process.stderr.on("data", (data) => {
+      errorOutput += data.toString();
+    });
+
+    process.on("close", (code) => {
+      res.json({
+        output: code !== 0 ? "Execution Error: " + errorOutput : output.trim(),
+      });
+    });
+
+    process.stdin.write(input + "\n");
+    process.stdin.end();
+  });
 });
+
+
 
 app.get("/problems", (req, res) => {
   res.json(getProblems());

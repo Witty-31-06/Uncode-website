@@ -1,5 +1,4 @@
-# Ignore all C++ files
-*.cpp
+
 
 # Node.js dependencies
 node_modules/
