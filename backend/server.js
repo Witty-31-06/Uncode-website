@@ -44,7 +44,7 @@ const getProblems = () => {
 
 //   process.on("close", (code) => {
 //     res.json({
-//       output: code !== 0 ? "Execution Error: " + errorOutput : output.trim(),
+//       output: code !== 0 ? "Invalid input" + errorOutput : output.trim(),
 //     });
 //   });
 

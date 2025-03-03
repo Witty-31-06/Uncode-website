@@ -1,8 +1,10 @@
 #include <iostream>
 #include <vector>
 
+using namespace std;
+
 void printPascalsTriangle(int n) {
-    std::vector<std::vector<int>> pascal(n);
+    vector<vector<int>> pascal(n);
 
     for (int i = 0; i < n; i++) {
         pascal[i].resize(i + 1);
@@ -15,15 +17,32 @@ void printPascalsTriangle(int n) {
 
     for (const auto& row : pascal) {
         for (int num : row) {
-            std::cout << num << " ";
+            cout << num << " ";
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 }
 
 int main() {
-    int n;
-    std::cin >> n;
-    printPascalsTriangle(n);
+    int t;
+    cin >> t;
+
+    // Validate t
+    if (t < 1 || t > 1000) {
+        return 1; // Exit with error
+    }
+
+    while (t--) {
+        int n;
+        cin >> n;
+
+        // Validate n
+        if (n < 1 || n > 30) {
+            return 1; // Exit with error
+        }
+
+        printPascalsTriangle(n);
+    }
+
     return 0;
 }

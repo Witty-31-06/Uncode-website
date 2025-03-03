@@ -1,61 +1,96 @@
-/* Dark Mode Styling */
 body, .dark-mode {
   background-color: #010118;
   color: #ffffff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-/* Navbar */
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #002147; /* Blue color */
-  padding: 10px 15px;
+  background-color: #002147; 
+  padding: 0px 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .logo-left, .logo-right {
-  height: 80px;
+  height: 75px;
   width: auto;
 }
 
 .nav-title {
-  font-size: 30px;
+  font-size: 35px;
   font-weight: bold;
   text-align: center;
   flex-grow: 1;
   color: #ffffff;
 }
 
-/* Container */
+
 .test-container {
-  width: 80%;
+  width: 96%;
   margin: auto;
   text-align: center;
-  padding: 20px;
+  padding: 10px;
 }
 
 .test-form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: #111;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Form Elements */
+
 .form-group {
   width: 100%;
   margin-bottom: 15px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 5px;
 }
 
 select {
   width: 100%;
-  padding: 8px;
+  padding: 10px;
   font-size: 16px;
+  background-color: #222;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 5px;
+}
+
+.problem-display {
+  width: 100%;
+  text-align: left;
+  margin-top: 15px;
+}
+
+.problem-statement {
+  background: #222;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #555;
+}
+
+.problem-statement h3 {
+  margin-top: 0;
 }
 
 .io-container {
   display: flex;
   gap: 20px;
   width: 100%;
+  margin-top: 15px;
 }
 
 .input-section, .output-section {
@@ -65,9 +100,9 @@ select {
 }
 
 textarea {
-  width: 100%;
-  height: 250px;
-  padding: 5px;
+  width: 95%;
+  height: 300px;
+  padding: 10px;
   font-size: 16px;
   background-color: #222;
   color: white;
@@ -81,9 +116,9 @@ textarea {
   border: 1px solid #555;
 }
 
-/* Button */
+
 .submit-btn {
-  padding: 10px 20px;
+  padding: 12px 25px;
   font-size: 18px;
   background-color: #007bff;
   color: white;
@@ -91,6 +126,11 @@ textarea {
   border-radius: 5px;
   cursor: pointer;
   margin-top: 20px;
+  transition: 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
 }
 
 .submit-btn:disabled {
