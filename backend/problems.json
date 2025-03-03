@@ -3,5 +3,6 @@
   "p2": { "name": "Problem 2", "executable": "p2" },
   "p3": { "name": "Problem 3", "executable": "p3" },
   "p4": { "name": "Problem 4", "executable": "p4" },
-  "p5": { "name": "Problem 5", "executable": "p5" }
+  "p5": { "name": "Problem 5", "executable": "p5" },
+  "p6": { "name": "Problem 6", "executable": "p6" }
 }
