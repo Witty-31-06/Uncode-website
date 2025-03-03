@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node backend/server.js",
-    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend && g++ backend/p1.cpp -o backend/p1 && g++ backend/p2.cpp -o backend/p2 && g++ backend/p3.cpp -o backend/p3 && g++ backend/p4.cpp -o backend/p4 && g++ backend/p5.cpp -o backend/p5 && chmod +x backend/p1 backend/p2 backend/p3 backend/p4 backend/p5"
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend && chmod +x backend/p1 backend/p2 backend/p3 backend/p4 backend/p5"
   },
   "author": "Soumyadeep Singh",
   "license": "ISC",
