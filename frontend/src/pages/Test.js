@@ -19,12 +19,11 @@ const Test = () => {
 
         setProblems(problemsData);
 
-        // Automatically select the first problem if available
         const firstProblemKey = Object.keys(problemsData)[0];
         if (firstProblemKey) {
           setProblem(firstProblemKey);
           setProblemStatement(problemsData[firstProblemKey]?.statement || "");
-          setInput(problemsData[firstProblemKey]?.["sample-input"] || ""); // Set sample input
+          setInput(problemsData[firstProblemKey]?.["sample-input"] || "");
         }
       } catch (error) {
         console.error("Error fetching problems:", error);
@@ -76,6 +75,35 @@ const Test = () => {
     }
   }, [problem, problems]);
 
+  useEffect(() => {
+    const tauntMessages = [
+      "Copy kar raha tha...Soch raha hoga na ‘isko kaise pata chala?’ Beta, teri shakal se hi ‘Ctrl + C Ctrl + V coder’ vibes aa rahi hai! Uncode mein aise nahi chalega, algorithm pe kaam kar!",
+      "Beta, tu toh code likhne ke naam pe hi darr gaya? Uncode mein aise nahi chalega, code likh!",
+      "Ajeeb banda hai tu, problem ka logic samajhne ka natak bhi karega ya seedha ‘print(expected_output)’ dalke chal padega? Genius bano, hardcoded coder nahi!",
+      "Beta, tu toh ‘print’ ke bina kuch nahi karta! Uncode mein aise nahi chalega, code likh!",
+      "Bhagwan teri copy-paste ki atma ko shanti de! Ab toh sudhar ja!",
+      "Beta, tu toh ‘Ctrl + C Ctrl + V’ ke bina kuch nahi karta! Uncode mein aise nahi chalega, code likh!",
+      "Ajeeb insaan hai tu... Copy-paste ka ashirwad lene aaya hai? Beta, yeh shastra tere liye nahi likha gaya! Apni soch se kuch naya kar!",
+      "Bro, Uncode jite jaabi mone korechis copy-paste diye? Bhalo bhalo! Pattern bojha nei, toh leaderboard er last e thakbi!",
+      "Aree bhai, eta Uncode, Stack Overflow submission na! Nijer brain lagabi na toh kikora jabe",
+      "যদি logic না বোঝ, তাহলে finals তো দুরের কথা, prelims-এর scoreboard eo নাম পাবে না!",
+    ];
+
+    const handleCopy = (event) => {
+      if (event.target.id === "problem-statement") {
+        event.preventDefault();
+        const randomMessage =
+          tauntMessages[Math.floor(Math.random() * tauntMessages.length)];
+        event.clipboardData.setData("text/plain", randomMessage);
+      }
+    };
+
+    document.addEventListener("copy", handleCopy);
+    return () => {
+      document.removeEventListener("copy", handleCopy);
+    };
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -116,6 +144,7 @@ const Test = () => {
               <div className="problem-statement">
                 <h3>Problem Statement</h3>
                 <p
+                  id="problem-statement"
                   dangerouslySetInnerHTML={{
                     __html: problemStatement.replace(/\n/g, "<br />"),
                   }}
