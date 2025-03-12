@@ -3,11 +3,20 @@ import axios from "axios";
 import "./Test.css";
 import ccjuLogo from "./ccju.png";
 import srijanLogo from "./srijan.png";
+import ProblemStatement from "../components/ProblemStatement";
+import InputSection from "../components/InputSection";
+import OutputSection from "../components/OutputSection";
+import ProblemSelector from "../components/ProblemSelector";
 
 const Test = () => {
   const [problems, setProblems] = useState({});
   const [problem, setProblem] = useState("");
-  const [problemStatement, setProblemStatement] = useState("");
+  const [inputFormat, setInputFormat] = useState("");
+  const [outputFormat, setOutputFormat] = useState("");
+  const [exampleInput1, setExampleInput1] = useState("");
+  const [exampleOutput1, setExampleOutput1] = useState("");
+  const [exampleInput2, setExampleInput2] = useState("");
+  const [exampleOutput2, setExampleOutput2] = useState("");
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
 
@@ -22,7 +31,16 @@ const Test = () => {
         const firstProblemKey = Object.keys(problemsData)[0];
         if (firstProblemKey) {
           setProblem(firstProblemKey);
-          setProblemStatement(problemsData[firstProblemKey]?.statement || "");
+          setInputFormat(problemsData[firstProblemKey]?.inputFormat || "");
+          setOutputFormat(problemsData[firstProblemKey]?.outputFormat || "");
+          setExampleInput1(problemsData[firstProblemKey]?.exampleInput1 || "");
+          setExampleOutput1(
+            problemsData[firstProblemKey]?.exampleOutput1 || ""
+          );
+          setExampleInput2(problemsData[firstProblemKey]?.exampleInput2 || "");
+          setExampleOutput2(
+            problemsData[firstProblemKey]?.exampleOutput2 || ""
+          );
           setInput(problemsData[firstProblemKey]?.["sample-input"] || "");
         }
       } catch (error) {
@@ -67,10 +85,20 @@ const Test = () => {
   useEffect(() => {
     setOutput("");
     if (problem) {
-      setProblemStatement(problems[problem]?.statement || "");
+      setInputFormat(problems[problem]?.inputFormat || "");
+      setOutputFormat(problems[problem]?.outputFormat || "");
+      setExampleInput1(problems[problem]?.exampleInput1 || "");
+      setExampleOutput1(problems[problem]?.exampleOutput1 || "");
+      setExampleInput2(problems[problem]?.exampleInput2 || "");
+      setExampleOutput2(problems[problem]?.exampleOutput2 || "");
       setInput(problems[problem]?.["sample-input"] || "");
     } else {
-      setProblemStatement("");
+      setInputFormat("");
+      setOutputFormat("");
+      setExampleInput1("");
+      setExampleOutput1("");
+      setExampleInput2("");
+      setExampleOutput2("");
       setInput("");
     }
   }, [problem, problems]);
@@ -85,12 +113,22 @@ const Test = () => {
       "Beta, tu toh ‘Ctrl + C Ctrl + V’ ke bina kuch nahi karta! Uncode mein aise nahi chalega, code likh!",
       "Ajeeb insaan hai tu... Copy-paste ka ashirwad lene aaya hai? Beta, yeh shastra tere liye nahi likha gaya! Apni soch se kuch naya kar!",
       "Bro, Uncode jite jaabi mone korechis copy-paste diye? Bhalo bhalo! Pattern bojha nei, toh leaderboard er last e thakbi!",
-      "Aree bhai, eta Uncode, Stack Overflow submission na! Nijer brain lagabi na toh kikora jabe",
+      "Aree bhai, eta Uncode! Nijer brain lagabi na toh kikora jabe",
       "যদি logic না বোঝ, তাহলে finals তো দুরের কথা, prelims-এর scoreboard eo নাম পাবে না!",
     ];
 
     const handleCopy = (event) => {
-      if (event.target.id === "problem-statement") {
+      const selection = window.getSelection();
+      const selectedText = selection.toString();
+      if (
+        selectedText.includes("Problem Statement") ||
+        selectedText.includes(inputFormat) ||
+        selectedText.includes(outputFormat) ||
+        // selectedText.includes(exampleInput1) ||
+        selectedText.includes(exampleOutput1) ||
+        //selectedText.includes(exampleInput2) ||
+        selectedText.includes(exampleOutput2)
+      ) {
         event.preventDefault();
         const randomMessage =
           tauntMessages[Math.floor(Math.random() * tauntMessages.length)];
@@ -102,7 +140,14 @@ const Test = () => {
     return () => {
       document.removeEventListener("copy", handleCopy);
     };
-  }, []);
+  }, [
+    inputFormat,
+    outputFormat,
+    exampleInput1,
+    exampleOutput1,
+    exampleInput2,
+    exampleOutput2,
+  ]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -124,52 +169,25 @@ const Test = () => {
 
       <div className="test-container">
         <form className="test-form" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Select Problem</label>
-            <select
-              value={problem}
-              onChange={(e) => setProblem(e.target.value)}
-              required
-            >
-              {Object.keys(problems).map((key, index) => (
-                <option key={key} value={key}>
-                  {problems[key]?.name || `Problem ${index + 1}`}
-                </option>
-              ))}
-            </select>
-          </div>
+          <ProblemSelector
+            problem={problem}
+            setProblem={setProblem}
+            problems={problems}
+          />
 
           {problem && (
             <div className="problem-display">
-              <div className="problem-statement">
-                <h3>Problem Statement</h3>
-                <p
-                  id="problem-statement"
-                  dangerouslySetInnerHTML={{
-                    __html: problemStatement.replace(/\n/g, "<br />"),
-                  }}
-                />
-              </div>
+              <ProblemStatement
+                inputFormat={inputFormat}
+                outputFormat={outputFormat}
+                exampleInput1={exampleInput1}
+                exampleOutput1={exampleOutput1}
+                exampleInput2={exampleInput2}
+                exampleOutput2={exampleOutput2}
+              />
               <div className="io-container">
-                <div className="input-section">
-                  <label>Input</label>
-                  <textarea
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    rows="10"
-                    placeholder="Enter input here..."
-                    required
-                  />
-                </div>
-                <div className="output-section">
-                  <label>Output</label>
-                  <textarea
-                    className="output-box"
-                    value={output}
-                    readOnly
-                    rows="10"
-                  />
-                </div>
+                <InputSection input={input} setInput={setInput} />
+                <OutputSection output={output} />
               </div>
             </div>
           )}
