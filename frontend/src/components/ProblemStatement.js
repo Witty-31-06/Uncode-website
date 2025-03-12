@@ -7,6 +7,7 @@ const ProblemStatement = ({
   exampleOutput1,
   exampleInput2,
   exampleOutput2,
+  onCopyTestCase,
 }) => {
   return (
     <div className="problem-statement">
@@ -15,11 +16,29 @@ const ProblemStatement = ({
       <p>{inputFormat.replace(/\n/g, "<br />")}</p>
       <h4>Output Format</h4>
       <p>{outputFormat.replace(/\n/g, "<br />")}</p>
-      <h4>Input 1</h4>
+      <div className="input-container">
+        <h4>Input 1</h4>
+        <button
+          className="copy-btn"
+          onClick={() => onCopyTestCase(exampleInput1)}
+          title="Copy to input box"
+        >
+          Use test case 📋
+        </button>
+      </div>
       <pre>{exampleInput1}</pre>
       <h4>Output 1</h4>
       <pre>{exampleOutput1}</pre>
-      <h4>Input 2</h4>
+      <div className="input-container">
+        <h4>Input 2</h4>
+        <button
+          className="copy-btn"
+          onClick={() => onCopyTestCase(exampleInput2)}
+          title="Copy to input box"
+        >
+          Use test case 📋
+        </button>
+      </div>
       <pre>{exampleInput2}</pre>
       <h4>Output 2</h4>
       <pre>{exampleOutput2}</pre>

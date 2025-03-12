@@ -41,7 +41,6 @@ const Test = () => {
           setExampleOutput2(
             problemsData[firstProblemKey]?.exampleOutput2 || ""
           );
-          setInput(problemsData[firstProblemKey]?.["sample-input"] || "");
         }
       } catch (error) {
         console.error("Error fetching problems:", error);
@@ -91,7 +90,7 @@ const Test = () => {
       setExampleOutput1(problems[problem]?.exampleOutput1 || "");
       setExampleInput2(problems[problem]?.exampleInput2 || "");
       setExampleOutput2(problems[problem]?.exampleOutput2 || "");
-      setInput(problems[problem]?.["sample-input"] || "");
+      setInput("");
     } else {
       setInputFormat("");
       setOutputFormat("");
@@ -124,9 +123,9 @@ const Test = () => {
         selectedText.includes("Problem Statement") ||
         selectedText.includes(inputFormat) ||
         selectedText.includes(outputFormat) ||
-        // selectedText.includes(exampleInput1) ||
+        selectedText.includes(exampleInput1) ||
         selectedText.includes(exampleOutput1) ||
-        //selectedText.includes(exampleInput2) ||
+        selectedText.includes(exampleInput2) ||
         selectedText.includes(exampleOutput2)
       ) {
         event.preventDefault();
@@ -148,6 +147,9 @@ const Test = () => {
     exampleInput2,
     exampleOutput2,
   ]);
+  const handleForm = async (e) => {
+    e.preventDefault();
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -159,6 +161,11 @@ const Test = () => {
     }
   };
 
+  const handleCopyTestCase = (testCase) => {
+    setInput(testCase);
+    setOutput("");
+  };
+
   return (
     <div className="dark-mode">
       <nav className="navbar">
@@ -168,7 +175,8 @@ const Test = () => {
       </nav>
 
       <div className="test-container">
-        <form className="test-form" onSubmit={handleSubmit}>
+        <form className="test-form" onSubmit={
+          handleForm}>
           <ProblemSelector
             problem={problem}
             setProblem={setProblem}
@@ -184,6 +192,7 @@ const Test = () => {
                 exampleOutput1={exampleOutput1}
                 exampleInput2={exampleInput2}
                 exampleOutput2={exampleOutput2}
+                onCopyTestCase={handleCopyTestCase}
               />
               <div className="io-container">
                 <InputSection input={input} setInput={setInput} />
@@ -192,7 +201,12 @@ const Test = () => {
             </div>
           )}
 
-          <button type="submit" className="submit-btn" disabled={!problem}>
+          <button
+            type="submit"
+            className="submit-btn"
+            disabled={!problem}
+            onClick={handleSubmit}
+          >
             Run
           </button>
         </form>

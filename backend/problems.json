@@ -8,8 +8,7 @@
     "exampleOutput1": "8\n6",
     "exampleInput2": "2\n100 -50\n-10 -20",
     "exampleOutput2": "50\n-30",
-    "sample-input": "2\n5 3\n-2 8",
-    "sample-output": "8\n6"
+    "sample-input": "2\n5 3\n-2 8"
   },
   "p2": {
     "name": "Problem 2",
@@ -20,8 +19,7 @@
     "exampleOutput1": "olleh\ndlrow",
     "exampleInput2": "2\nabcde\nOpenAI",
     "exampleOutput2": "edcba\nIAnepO",
-    "sample-input": "2\nhello\nworld",
-    "sample-output": "olleh\ndlrow"
+    "sample-input": "2\nhello\nworld"
   },
   "p3": {
     "name": "Problem 3",
@@ -32,8 +30,7 @@
     "exampleOutput1": "6\n-10",
     "exampleInput2": "2\n5\n10 20 30 40 50\n3\n7 8 9",
     "exampleOutput2": "150\n24",
-    "sample-input": "2\n3\n1 2 3\n4\n-1 -2 -3 -4",
-    "sample-output": "6\n-10"
+    "sample-input": "2\n3\n1 2 3\n4\n-1 -2 -3 -4"
   },
   "p4": {
     "name": "Problem 4",
@@ -44,8 +41,7 @@
     "exampleOutput1": "3\n-1",
     "exampleInput2": "2\n5\n10 20 30 40 50\n3\n7 8 9",
     "exampleOutput2": "50\n9",
-    "sample-input": "2\n3\n1 2 3\n4\n-1 -2 -3 -4",
-    "sample-output": "3\n-1"
+    "sample-input": "2\n3\n1 2 3\n4\n-1 -2 -3 -4"
   },
   "p5": {
     "name": "Problem 5",
@@ -56,7 +52,6 @@
     "exampleOutput1": "1\n1 1\n1 2 1\n\n1\n1 1\n1 2 1\n1 3 3 1",
     "exampleInput2": "2\n2\n5",
     "exampleOutput2": "1\n1 1\n1\n1 1\n1 2 1\n1 3 3 1\n1 4 6 4 1",
-    "sample-input": "2\n3\n4",
-    "sample-output": "1\n1 1\n1 2 1\n\n1\n1 1\n1 2 1\n1 3 3 1"
+    "sample-input": "2\n3\n4"
   }
 }

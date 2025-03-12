@@ -1,4 +1,5 @@
-body, .dark-mode {
+body,
+.dark-mode {
   background-color: #010118;
   color: #ffffff;
   font-family: Arial, sans-serif;
@@ -10,12 +11,13 @@ body, .dark-mode {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #002147; 
+  background-color: #002147;
   padding: 0px 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.logo-left, .logo-right {
+.logo-left,
+.logo-right {
   height: 75px;
   width: auto;
 }
@@ -27,7 +29,6 @@ body, .dark-mode {
   flex-grow: 1;
   color: #ffffff;
 }
-
 
 .test-container {
   width: 96%;
@@ -45,7 +46,6 @@ body, .dark-mode {
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
-
 
 .form-group {
   width: 100%;
@@ -93,12 +93,19 @@ select {
   margin-top: 15px;
 }
 
-.input-section, .output-section {
+.input-section {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
+.output-section
+{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: 9px;
+}
 textarea {
   width: 95%;
   height: 300px;
@@ -116,6 +123,21 @@ textarea {
   border: 1px solid #555;
 }
 
+button {
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 5px;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
 
 .submit-btn {
   padding: 12px 25px;
@@ -136,4 +158,45 @@ textarea {
 .submit-btn:disabled {
   background-color: #555;
   cursor: not-allowed;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.input-label-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.copy-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: white;
+  background-color: #0b77e2;
+  transition: color 0.3s ease;
+}
+
+
+
+.clear-btn {
+  padding: 5px 5px;
+  font-size: 15px;
+  background-color: #0e24ef;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin: 5px;
+  margin-left: auto;
+}
+
+.clear-btn:hover {
+  background-color: #07144b;
 }
