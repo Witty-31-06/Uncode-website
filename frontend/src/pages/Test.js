@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./Test.css";
 import ccjuLogo from "./ccju.png";
@@ -10,7 +10,9 @@ import ProblemSelector from "../components/ProblemSelector";
 
 const Test = () => {
   const [problems, setProblems] = useState({});
-  const [problem, setProblem] = useState("");
+  const [problem, setProblem] = useState(
+    localStorage.getItem("selectedProblem") || ""
+  );
   const [inputFormat, setInputFormat] = useState("");
   const [outputFormat, setOutputFormat] = useState("");
   const [exampleInput1, setExampleInput1] = useState("");
@@ -19,6 +21,7 @@ const Test = () => {
   const [exampleOutput2, setExampleOutput2] = useState("");
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
+  const inputRef = useRef(null);
 
   useEffect(() => {
     const fetchProblems = async () => {
@@ -29,7 +32,7 @@ const Test = () => {
         setProblems(problemsData);
 
         const firstProblemKey = Object.keys(problemsData)[0];
-        if (firstProblemKey) {
+        if (firstProblemKey && !problem) {
           setProblem(firstProblemKey);
           setInputFormat(problemsData[firstProblemKey]?.inputFormat || "");
           setOutputFormat(problemsData[firstProblemKey]?.outputFormat || "");
@@ -73,7 +76,7 @@ const Test = () => {
       document.removeEventListener("keydown", disableInspect);
       document.removeEventListener("contextmenu", disableRightClick);
     };
-  }, []);
+  }, [problem]);
 
   useEffect(() => {
     if (input.trim() === "") {
@@ -112,8 +115,7 @@ const Test = () => {
       "Beta, tu toh ‘Ctrl + C Ctrl + V’ ke bina kuch nahi karta! Uncode mein aise nahi chalega, code likh!",
       "Ajeeb insaan hai tu... Copy-paste ka ashirwad lene aaya hai? Beta, yeh shastra tere liye nahi likha gaya! Apni soch se kuch naya kar!",
       "Bro, Uncode jite jaabi mone korechis copy-paste diye? Bhalo bhalo! Pattern bojha nei, toh leaderboard er last e thakbi!",
-      "Aree bhai, eta Uncode! Nijer brain lagabi na toh kikora jabe",
-      "যদি logic না বোঝ, তাহলে finals তো দুরের কথা, prelims-এর scoreboard eo নাম পাবে না!",
+      "Aree bhai, eta Uncode! Nijer brain lagabi na toh kikora jabe"
     ];
 
     const handleCopy = (event) => {
@@ -149,7 +151,7 @@ const Test = () => {
   ]);
   const handleForm = async (e) => {
     e.preventDefault();
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -164,6 +166,12 @@ const Test = () => {
   const handleCopyTestCase = (testCase) => {
     setInput(testCase);
     setOutput("");
+    inputRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleProblemChange = (selectedProblem) => {
+    setProblem(selectedProblem);
+    localStorage.setItem("selectedProblem", selectedProblem);
   };
 
   return (
@@ -175,11 +183,10 @@ const Test = () => {
       </nav>
 
       <div className="test-container">
-        <form className="test-form" onSubmit={
-          handleForm}>
+        <form className="test-form" onSubmit={handleForm}>
           <ProblemSelector
             problem={problem}
-            setProblem={setProblem}
+            setProblem={handleProblemChange}
             problems={problems}
           />
 
@@ -194,7 +201,7 @@ const Test = () => {
                 exampleOutput2={exampleOutput2}
                 onCopyTestCase={handleCopyTestCase}
               />
-              <div className="io-container">
+              <div className="io-container" ref={inputRef}>
                 <InputSection input={input} setInput={setInput} />
                 <OutputSection output={output} />
               </div>

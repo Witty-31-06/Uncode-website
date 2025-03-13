@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 const ProblemStatement = ({
   inputFormat,
@@ -9,6 +9,13 @@ const ProblemStatement = ({
   exampleOutput2,
   onCopyTestCase,
 }) => {
+  const inputRef = useRef(null);
+
+  const handleCopyTestCase = (testCase) => {
+    onCopyTestCase(testCase);
+    inputRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="problem-statement">
       <h3 id="problem-statement">Problem Statement</h3>
@@ -20,7 +27,7 @@ const ProblemStatement = ({
         <h4>Input 1</h4>
         <button
           className="copy-btn"
-          onClick={() => onCopyTestCase(exampleInput1)}
+          onClick={() => handleCopyTestCase(exampleInput1)}
           title="Copy to input box"
         >
           Use test case 📋
@@ -33,7 +40,7 @@ const ProblemStatement = ({
         <h4>Input 2</h4>
         <button
           className="copy-btn"
-          onClick={() => onCopyTestCase(exampleInput2)}
+          onClick={() => handleCopyTestCase(exampleInput2)}
           title="Copy to input box"
         >
           Use test case 📋
@@ -42,6 +49,7 @@ const ProblemStatement = ({
       <pre>{exampleInput2}</pre>
       <h4>Output 2</h4>
       <pre>{exampleOutput2}</pre>
+      <div ref={inputRef}></div>
     </div>
   );
 };
