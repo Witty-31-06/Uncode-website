@@ -22,9 +22,12 @@ const Test = () => {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const inputRef = useRef(null);
+  const [loading, setLoading] = useState(false);
+  const [running, setRunning] = useState(false);
 
   useEffect(() => {
     const fetchProblems = async () => {
+      setLoading(true);
       try {
         const response = await axios.get("/problems");
         const problemsData = response.data;
@@ -47,6 +50,8 @@ const Test = () => {
         }
       } catch (error) {
         console.error("Error fetching problems:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchProblems();
@@ -115,7 +120,7 @@ const Test = () => {
       "Beta, tu toh ‘Ctrl + C Ctrl + V’ ke bina kuch nahi karta! Uncode mein aise nahi chalega, code likh!",
       "Ajeeb insaan hai tu... Copy-paste ka ashirwad lene aaya hai? Beta, yeh shastra tere liye nahi likha gaya! Apni soch se kuch naya kar!",
       "Bro, Uncode jite jaabi mone korechis copy-paste diye? Bhalo bhalo! Pattern bojha nei, toh leaderboard er last e thakbi!",
-      "Aree bhai, eta Uncode! Nijer brain lagabi na toh kikora jabe"
+      "Aree bhai, eta Uncode! Nijer brain lagabi na toh kikora jabe",
     ];
 
     const handleCopy = (event) => {
@@ -155,11 +160,14 @@ const Test = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setRunning(true);
     try {
       const response = await axios.post("/run", { problem, input });
       setOutput(response.data.output);
     } catch {
       setOutput("");
+    } finally {
+      setRunning(false);
     }
   };
 
@@ -183,40 +191,44 @@ const Test = () => {
       </nav>
 
       <div className="test-container">
-        <form className="test-form" onSubmit={handleForm}>
-          <ProblemSelector
-            problem={problem}
-            setProblem={handleProblemChange}
-            problems={problems}
-          />
+        {loading ? (
+          <div className="spinner"></div>
+        ) : (
+          <form className="test-form" onSubmit={handleForm}>
+            <ProblemSelector
+              problem={problem}
+              setProblem={handleProblemChange}
+              problems={problems}
+            />
 
-          {problem && (
-            <div className="problem-display">
-              <ProblemStatement
-                inputFormat={inputFormat}
-                outputFormat={outputFormat}
-                exampleInput1={exampleInput1}
-                exampleOutput1={exampleOutput1}
-                exampleInput2={exampleInput2}
-                exampleOutput2={exampleOutput2}
-                onCopyTestCase={handleCopyTestCase}
-              />
-              <div className="io-container" ref={inputRef}>
-                <InputSection input={input} setInput={setInput} />
-                <OutputSection output={output} />
+            {problem && (
+              <div className="problem-display">
+                <ProblemStatement
+                  inputFormat={inputFormat}
+                  outputFormat={outputFormat}
+                  exampleInput1={exampleInput1}
+                  exampleOutput1={exampleOutput1}
+                  exampleInput2={exampleInput2}
+                  exampleOutput2={exampleOutput2}
+                  onCopyTestCase={handleCopyTestCase}
+                />
+                <div className="io-container" ref={inputRef}>
+                  <InputSection input={input} setInput={setInput} />
+                  <OutputSection output={output} />
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          <button
-            type="submit"
-            className="submit-btn"
-            disabled={!problem}
-            onClick={handleSubmit}
-          >
-            Run
-          </button>
-        </form>
+            <button
+              type="submit"
+              className="submit-btn"
+              disabled={!problem || running}
+              onClick={handleSubmit}
+            >
+              {running ? "Running..." : "Run"}
+            </button>
+          </form>
+        )}
       </div>
     </div>
   );

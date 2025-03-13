@@ -22,7 +22,7 @@ body {
 .footer {
   background: linear-gradient(135deg, #1a1a1a, #333333); /* Elegant gradient */
   color: #ffffff;
-  padding: 1.0rem 0;
+  padding: 1rem 0;
   text-align: center;
   position: relative;
   box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
@@ -37,31 +37,10 @@ body {
   padding: 0 1rem;
 }
 
-/* Social Icons */
-.footer .social-icons {
-  display: flex;
-  gap: 15px;
-}
-
-.footer .social-icons a {
-  color: #ffffff;
-  font-size: 1.6rem;
-  transition: all 0.3s ease-in-out;
-}
-
-.footer .social-icons a:hover {
-  transform: scale(1.2);
-}
-
-/* Custom Hover Colors */
-.footer .social-icons a:nth-child(1):hover {
-  color: #0073b1; /* LinkedIn */
-}
-.footer .social-icons a:nth-child(2):hover {
-  color: #333333; /* GitHub */
-}
-.footer .social-icons a:nth-child(3):hover {
-  color: #3498db; /* Portfolio */
+.footer .srijan {
+  font-size: 1rem;
+  color: #f60808; /* Highlighted color */
+  margin-left: 1rem;
 }
 
 /* Responsive Design */
@@ -71,4 +50,3 @@ body {
     gap: 10px;
   }
 }
-

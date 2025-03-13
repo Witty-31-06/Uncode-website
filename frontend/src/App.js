@@ -15,6 +15,7 @@ function App() {
       <footer className="footer">
         <div className="container">
           <span>&copy; {new Date().getFullYear()} CodeClub JU</span>
+          <span className="srijan">SRIJAN - Tech Fest of JU</span>
         </div>
       </footer>
     </div>
