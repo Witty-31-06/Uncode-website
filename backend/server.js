@@ -97,6 +97,7 @@ app.post("/run", (req, res) => {
 
 
 app.get("/problems", (req, res) => {
+  //console.log("fetched");
   res.json(getProblems());
 });
 

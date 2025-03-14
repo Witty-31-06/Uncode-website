@@ -31,22 +31,12 @@ const Test = () => {
       try {
         const response = await axios.get("/problems");
         const problemsData = response.data;
-
         setProblems(problemsData);
 
         const firstProblemKey = Object.keys(problemsData)[0];
         if (firstProblemKey && !problem) {
           setProblem(firstProblemKey);
-          setInputFormat(problemsData[firstProblemKey]?.inputFormat || "");
-          setOutputFormat(problemsData[firstProblemKey]?.outputFormat || "");
-          setExampleInput1(problemsData[firstProblemKey]?.exampleInput1 || "");
-          setExampleOutput1(
-            problemsData[firstProblemKey]?.exampleOutput1 || ""
-          );
-          setExampleInput2(problemsData[firstProblemKey]?.exampleInput2 || "");
-          setExampleOutput2(
-            problemsData[firstProblemKey]?.exampleOutput2 || ""
-          );
+          setProblemDetails(problemsData[firstProblemKey]);
         }
       } catch (error) {
         console.error("Error fetching problems:", error);
@@ -81,7 +71,7 @@ const Test = () => {
       document.removeEventListener("keydown", disableInspect);
       document.removeEventListener("contextmenu", disableRightClick);
     };
-  }, [problem]);
+  }, []);
 
   useEffect(() => {
     if (input.trim() === "") {
@@ -92,23 +82,31 @@ const Test = () => {
   useEffect(() => {
     setOutput("");
     if (problem) {
-      setInputFormat(problems[problem]?.inputFormat || "");
-      setOutputFormat(problems[problem]?.outputFormat || "");
-      setExampleInput1(problems[problem]?.exampleInput1 || "");
-      setExampleOutput1(problems[problem]?.exampleOutput1 || "");
-      setExampleInput2(problems[problem]?.exampleInput2 || "");
-      setExampleOutput2(problems[problem]?.exampleOutput2 || "");
+      setProblemDetails(problems[problem]);
       setInput("");
     } else {
-      setInputFormat("");
-      setOutputFormat("");
-      setExampleInput1("");
-      setExampleOutput1("");
-      setExampleInput2("");
-      setExampleOutput2("");
+      resetProblemDetails();
       setInput("");
     }
   }, [problem, problems]);
+
+  const setProblemDetails = (problemData) => {
+    setInputFormat(problemData?.inputFormat || "");
+    setOutputFormat(problemData?.outputFormat || "");
+    setExampleInput1(problemData?.exampleInput1 || "");
+    setExampleOutput1(problemData?.exampleOutput1 || "");
+    setExampleInput2(problemData?.exampleInput2 || "");
+    setExampleOutput2(problemData?.exampleOutput2 || "");
+  };
+
+  const resetProblemDetails = () => {
+    setInputFormat("");
+    setOutputFormat("");
+    setExampleInput1("");
+    setExampleOutput1("");
+    setExampleInput2("");
+    setExampleOutput2("");
+  };
 
   useEffect(() => {
     const tauntMessages = [
@@ -180,6 +178,7 @@ const Test = () => {
   const handleProblemChange = (selectedProblem) => {
     setProblem(selectedProblem);
     localStorage.setItem("selectedProblem", selectedProblem);
+    setProblemDetails(problems[selectedProblem]);
   };
 
   return (
