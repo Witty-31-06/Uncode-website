@@ -39,8 +39,9 @@ body {
 
 .footer .srijan {
   font-size: 1rem;
-  color: #f60808; /* Highlighted color */
+  color: white; /* Highlighted color */
   margin-left: 1rem;
+  margin-right: 3rem;
 }
 
 /* Responsive Design */
