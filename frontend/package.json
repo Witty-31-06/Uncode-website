@@ -1,6 +1,5 @@
 {
   "name": "frontend",
-  "homepage": "https://witty-31-06.github.io/Uncode-website",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -22,7 +21,7 @@
     "build": "CI=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build && echo 'ccju-uncode2025-4910.me' > build/CNAME",
     "deploy": "gh-pages -d build"
     
   },
