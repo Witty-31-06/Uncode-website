@@ -7,9 +7,9 @@ const { exec } = require("child_process");
 
 const app = express();
 
-
+const allowedOrigin = process.env.FRONTEND_URL || "http://localhost:3000";
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: allowedOrigin,
   methods: ["POST", "GET"],
 };
 app.use(cors(corsOptions));
@@ -109,4 +109,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname1,"frontend","build","index.html"));
 })
 //--------deployment-----------
-app.listen(5000, () => console.log("Server running"));
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => console.log("Server running"));
