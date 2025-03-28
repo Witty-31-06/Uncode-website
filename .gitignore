@@ -1,0 +1,58 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Logs
+logs/
+*.log
+logs/*.log
+debug.log
+pm2.log
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Editor files
+.vscode/
+.idea/
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build outputs
+dist/
+build/
+coverage/
+.cache/
+.next/
+out/
+
+# MongoDB database files (if any)
+data/db/
+dump/
+
+# Frontend dependencies (React)
+frontend/node_modules/
+frontend/build/
+
+# Backend dependencies
+backend/node_modules/
+backend/dist/
+
+# Miscellaneous
+*.bak
+*.swp
+*.swo
