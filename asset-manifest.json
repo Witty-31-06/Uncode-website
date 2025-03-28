@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Uncode-website/static/css/main.73cee65a.css",
-    "main.js": "/Uncode-website/static/js/main.9bda454d.js",
-    "static/media/srijan.png": "/Uncode-website/static/media/srijan.6de05a2a973469b38b7e.png",
-    "static/media/ccju.png": "/Uncode-website/static/media/ccju.2d1e149488b920f597dc.png",
-    "index.html": "/Uncode-website/index.html",
-    "main.73cee65a.css.map": "/Uncode-website/static/css/main.73cee65a.css.map",
-    "main.9bda454d.js.map": "/Uncode-website/static/js/main.9bda454d.js.map"
+    "main.css": "/static/css/main.73cee65a.css",
+    "main.js": "/static/js/main.ef8945b5.js",
+    "static/media/srijan.png": "/static/media/srijan.6de05a2a973469b38b7e.png",
+    "static/media/ccju.png": "/static/media/ccju.2d1e149488b920f597dc.png",
+    "index.html": "/index.html",
+    "main.73cee65a.css.map": "/static/css/main.73cee65a.css.map",
+    "main.ef8945b5.js.map": "/static/js/main.ef8945b5.js.map"
   },
   "entrypoints": [
     "static/css/main.73cee65a.css",
-    "static/js/main.9bda454d.js"
+    "static/js/main.ef8945b5.js"
   ]
 }
