@@ -7,6 +7,7 @@ import ProblemStatement from "../components/ProblemStatement";
 import InputSection from "../components/InputSection";
 import OutputSection from "../components/OutputSection";
 import ProblemSelector from "../components/ProblemSelector";
+const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
 
 
 const Test = () => {
@@ -30,7 +31,7 @@ const Test = () => {
     const fetchProblems = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("/problems");
+        const response = await axios.get(`${API_BASE_URL}/problems`);
         const problemsData = response.data;
         setProblems(problemsData);
 
@@ -161,7 +162,7 @@ const Test = () => {
     e.preventDefault();
     setRunning(true);
     try {
-      const response = await axios.post("/run", { problem, input });
+      const response = await axios.post(`${API_BASE_URL}/run`, { problem, input });
       setOutput(response.data.output);
     } catch {
       setOutput("");
